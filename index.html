@@ -1,75 +1,304 @@
+
 <!doctype html>
 <html lang="it">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Home · L’Indomita Compagnia Teatrale</title>
-<meta name="description" content="Compagnia teatrale indipendente di Bergamo: commedie, letture e progetti per la comunità.">
-<link rel="preload" as="image" href="assets/img/hero.webp">
-<link rel="icon" type="image/webp" href="assets/img/logo.webp">
-<link rel="stylesheet" href="assets/css/style.css">
-<script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "PerformingGroup", "name": "L’Indomita Compagnia Teatrale", "url": "https://example.com", "image": "assets/img/logo.webp", "address": {"@type": "PostalAddress", "addressLocality": "Bergamo", "addressCountry": "IT"}, "sameAs": ["https://instagram.com/"], "foundingLocation": "Gorle (BG)"}
-</script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>L’Indomita Compagnia Teatrale</title>
+  <meta name="description" content="L’Indomita Compagnia Teatrale — spettacoli, rassegne, teatro dal vivo." />
+  <style>
+    :root{
+      --bg:#0b0b10;
+      --bg2:#0a1430;
+      --card:rgba(255,255,255,.04);
+      --text:#f6f4ee;
+      --muted:#b9b9c7;
+      --gold:#d4b36a;
+      --line:rgba(212,179,106,.25);
+      --shadow:0 18px 50px rgba(0,0,0,.55);
+      --r:20px;
+      --max:1120px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 10% 0%, rgba(212,179,106,.18), transparent 55%),
+        radial-gradient(900px 650px at 90% 10%, rgba(212,179,106,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg2), var(--bg) 60%);
+      line-height:1.55;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:26px 18px}
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(10,20,48,.72);
+      border-bottom:1px solid var(--line);
+    }
+    .top{
+      max-width:var(--max); margin:0 auto;
+      padding:14px 18px;
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+    }
+    .brand{display:flex; align-items:center; gap:12px; min-width:240px}
+    .mark{
+      width:42px; height:42px; border-radius:14px;
+      background: linear-gradient(135deg, rgba(212,179,106,.95), rgba(212,179,106,.35));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:var(--shadow);
+      flex:0 0 auto;
+    }
+    .brand h1{margin:0; font-size:14px; letter-spacing:.2px}
+    .brand p{margin:0; font-size:12px; color:var(--muted)}
+    nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+    nav a{
+      font-size:13px; color:var(--muted);
+      padding:8px 10px; border-radius:14px;
+      border:1px solid transparent;
+    }
+    nav a:hover{color:var(--text); border-color:var(--line); background:rgba(255,255,255,.04)}
+
+    .card{
+      border:1px solid var(--line);
+      background: rgba(11,11,16,.45);
+      border-radius:var(--r);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .pad{padding:22px}
+
+    .hero{padding:34px 0 10px}
+    .hero-art{
+      min-height: 360px;
+      background:
+        radial-gradient(900px 380px at 50% 0%, rgba(212,179,106,.28), transparent 60%),
+        linear-gradient(180deg, rgba(11,11,16,.20), rgba(11,11,16,.92));
+      border-bottom:1px solid var(--line);
+      position:relative;
+    }
+    /* Se carichi un file hero.jpg nel repo, attiva lo sfondo vero cambiando display */
+    .hero-art::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(180deg, rgba(11,11,16,.15), rgba(11,11,16,.92)),
+        radial-gradient(800px 400px at 50% 0%, rgba(212,179,106,.22), transparent 60%),
+        url("hero.jpg");
+      background-size:cover;
+      background-position:center;
+      opacity:0; /* metti 1 quando avrai hero.jpg */
+    }
+
+    .kicker{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:7px 10px; border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:12px;
+    }
+    .dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+    .title{margin:14px 0 10px; font-size:40px; line-height:1.06; letter-spacing:.2px}
+    .lead{margin:0 0 14px; color:var(--muted); max-width:68ch}
+
+    .cta{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    .btn{
+      padding:10px 14px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      font-size:13px;
+      display:inline-flex; align-items:center; justify-content:center;
+    }
+    .btn:hover{background: rgba(255,255,255,.07)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(212,179,106,.98), rgba(212,179,106,.55));
+      color:#171106; font-weight:800;
+      border-color: rgba(212,179,106,.55);
+    }
+
+    section{padding:18px 0}
+    .sec-head{display:flex; justify-content:space-between; gap:12px; align-items:end}
+    .sec-head h2{margin:0; font-size:18px}
+    .sec-head span{color:var(--muted); font-size:13px}
+
+    .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:12px}
+    .two{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px}
+    @media (max-width: 920px){
+      .grid3,.two{grid-template-columns:1fr}
+      nav{justify-content:flex-start}
+      .brand{min-width:unset}
+      .title{font-size:34px}
+    }
+
+    .item{background:var(--card)}
+    .item h3{margin:0 0 6px; font-size:15px}
+    .item p{margin:0; color:var(--muted); font-size:13px}
+    .meta{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+    .pill{
+      font-size:12px; color:var(--muted);
+      padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+    }
+
+    footer{
+      margin-top:26px;
+      border-top:1px solid var(--line);
+      padding:18px 0 10px;
+      color:var(--muted);
+      font-size:12px;
+    }
+  </style>
 </head>
+
 <body>
-<nav>
-  <div class="brand">
-    <img src="assets/img/logo.webp" alt="Logo">
-    <div class="name">L’Indomita Compagnia Teatrale</div>
-  </div>
-  <div class="menu">
-    <a href="index.html">Home</a>
-    <a href="spettacoli.html">Spettacoli</a>
-    <a href="calendario.html">Calendario</a>
-    <a href="chi-siamo.html">Chi siamo</a>
-    <a href="press.html">Press Kit</a>
-    <a href="sostienici.html">Sostienici</a>
-    <a class="btn" href="contatti.html">Contatti</a>
-  </div>
-</nav>
-
-<section class="hero container">
-  <div>
-    <div class="kicker">Teatro · Bergamo</div>
-    <h1>L’Indomita Compagnia Teatrale</h1>
-    <p>Facciamo teatro con coraggio e mestiere: commedie originali, fiabe “con la vera storia”, progetti per biblioteche e spazi non convenzionali.</p>
-    <ul class="inline">
-      <li><a class="btn" href="spettacoli.html">Scopri gli spettacoli</a></li>
-      <li><a href="calendario.html">Prossime date</a></li>
-    </ul>
-  </div>
-  <div>
-    <img src="assets/img/hero.webp" alt="L’Indomita Compagnia Teatrale">
-  </div>
-</section>
-
-<div class="container">
-  <h2>In evidenza</h2>
-  <div id="cards-evidenza" class="grid"></div>
-</div>
-
-<footer>
-  <div class="container cols">
-    <div>
-      <div class="kicker">L’Indomita</div>
-      <p>Compagnia teatrale indipendente con base tra Bergamo e provincia. Produzioni, letture sceniche e progetti per il territorio.</p>
+<header>
+  <div class="top">
+    <div class="brand">
+      <div class="mark" aria-hidden="true"></div>
+      <div>
+        <h1>L’Indomita Compagnia Teatrale</h1>
+        <p>Teatro dal vivo • Bergamo e provincia</p>
+      </div>
     </div>
-    <div>
-      <h3>Contatti</h3>
-      <p>Email: <a href="mailto:info@lindomita.it">info@lindomita.it</a><br>Instagram: <a href="https://instagram.com/">@lindomita</a></p>
-    </div>
-    <div>
-      <h3>Link utili</h3>
-      <ul>
-        <li><a href="privacy.html">Privacy & Cookie</a></li>
-        <li><a href="sitemap.xml">Sitemap</a></li>
-        <li><a href="robots.txt">Robots</a></li>
-      </ul>
-    </div>
+    <nav>
+      <a href="#spettacoli">Spettacoli</a>
+      <a href="#chi">Chi siamo</a>
+      <a href="#date">Date</a>
+      <a href="#contatti">Contatti</a>
+    </nav>
   </div>
-  <div class="container"><small>© 2025 L’Indomita Compagnia Teatrale · Bergamo (IT)</small></div>
-</footer>
-<script src="assets/js/main.js"></script>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="card">
+      <div class="hero-art" aria-hidden="true"></div>
+      <div class="pad">
+        <div class="kicker"><span class="dot"></span> Art déco • Commedia • Rassegne • Eventi</div>
+        <div class="title">Entra in sala. Il sipario si apre.</div>
+        <p class="lead">
+          L’Indomita Compagnia Teatrale porta sul palco spettacoli brillanti e serate evento con un gusto elegante,
+          curato, senza tempo.
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="#spettacoli">Scopri gli spettacoli</a>
+          <a class="btn" href="#date">Vedi le prossime date</a>
+          <a class="btn" href="#contatti">Contattaci</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="spettacoli">
+    <div class="sec-head">
+      <h2>Spettacoli</h2>
+      <span>Inserisci titoli reali e sinossi</span>
+    </div>
+
+    <div class="grid3">
+      <div class="card pad item">
+        <h3>Commedia brillante — Titolo 1</h3>
+        <p>Equivoci, ritmo, personaggi indimenticabili. Una serata che resta.</p>
+        <div class="meta">
+          <span class="pill">Durata: 90’</span><span class="pill">Cast: 6–8</span><span class="pill">Pubblico: Tutti</span>
+        </div>
+      </div>
+
+      <div class="card pad item">
+        <h3>Serata evento — Titolo 2</h3>
+        <p>Formato perfetto per rassegne, circoli e sale polivalenti.</p>
+        <div class="meta">
+          <span class="pill">Durata: 75’</span><span class="pill">Tecnica: Light</span><span class="pill">Genere: Evento</span>
+        </div>
+      </div>
+
+      <div class="card pad item">
+        <h3>Classico rivisitato — Titolo 3</h3>
+        <p>Un classico portato in scena con rispetto e nuova energia.</p>
+        <div class="meta">
+          <span class="pill">Durata: 100’</span><span class="pill">Genere: Classico</span><span class="pill">Cast: 4–10</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="chi">
+    <div class="sec-head">
+      <h2>Chi siamo</h2>
+      <span>Manifesto breve</span>
+    </div>
+
+    <div class="two">
+      <div class="card pad item">
+        <h3>Missione</h3>
+        <p>Portare teatro dal vivo con cura, tempi scenici e un’estetica riconoscibile: elegante, umana, indomita.</p>
+      </div>
+      <div class="card pad item">
+        <h3>Cosa facciamo</h3>
+        <p>Spettacoli completi, rassegne, serate evento e collaborazioni con teatri, comuni, associazioni e circoli culturali.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="date">
+    <div class="sec-head">
+      <h2>Prossime date</h2>
+      <span>Sezione semplice, modificabile</span>
+    </div>
+
+    <div class="grid3">
+      <div class="card pad item">
+        <h3>GG/MM/AAAA — Città</h3>
+        <p>Teatro / Sala • Ore HH:MM • Info biglietti</p>
+        <div class="meta"><span class="pill">Ingresso: info</span><span class="pill">Link: inserisci</span></div>
+      </div>
+      <div class="card pad item">
+        <h3>GG/MM/AAAA — Città</h3>
+        <p>Teatro / Sala • Ore HH:MM • Info biglietti</p>
+        <div class="meta"><span class="pill">Ingresso: info</span><span class="pill">Link: inserisci</span></div>
+      </div>
+      <div class="card pad item">
+        <h3>GG/MM/AAAA — Città</h3>
+        <p>Teatro / Sala • Ore HH:MM • Info biglietti</p>
+        <div class="meta"><span class="pill">Ingresso: info</span><span class="pill">Link: inserisci</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contatti">
+    <div class="sec-head">
+      <h2>Contatti</h2>
+      <span>Solo link diretti</span>
+    </div>
+
+    <div class="two">
+      <div class="card pad item">
+        <h3>Scrivici</h3>
+        <p>Per date, rassegne o informazioni: contatto diretto e veloce.</p>
+        <div class="cta">
+          <a class="btn primary" href="mailto:INSERISCI_EMAIL?subject=Contatto%20-%20L%27Indomita%20Compagnia%20Teatrale">Email</a>
+          <a class="btn" href="https://wa.me/39INSERISCI_NUMERO" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn" href="https://instagram.com/INSERISCI_HANDLE" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+      <div class="card pad item">
+        <h3>Info</h3>
+        <p><b>Email:</b> INSERISCI_EMAIL<br/><b>WhatsApp:</b> +39 INSERISCI_NUMERO<br/><b>Instagram:</b> @INSERISCI_HANDLE<br/><b>Zona:</b> Bergamo e provincia</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="y"></span> L’Indomita Compagnia Teatrale — Teatro dal vivo
+  </footer>
+</main>
+
+<script>document.getElementById("y").textContent=new Date().getFullYear();</script>
 </body>
 </html>
